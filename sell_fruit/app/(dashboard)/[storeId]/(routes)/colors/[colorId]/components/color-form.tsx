@@ -5,10 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Billboard, Category } from "@prisma/client";
+import { Color } from "@prisma/client";
 import axios from "axios";
 import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -19,18 +18,16 @@ import { z } from "zod";
 
 const formSchema = z.object({
     name: z.string().min(1),
-    billboardId: z.string().min(1)
+    value: z.string().min(1)
 })
 
-interface CategoryFormProps {
-    billboards: Billboard[],
-    initialData: Category | null
+interface ColorFormProps {
+    initialData: Color | null
 }
 
-type CategoryFormValues = z.infer<typeof formSchema>;
+type ColorFormValues = z.infer<typeof formSchema>;
 
-const CategoryForm: React.FC<CategoryFormProps> = ({
-    billboards,
+const ColorForm: React.FC<ColorFormProps> = ({
     initialData,
 }) => {
     const params = useParams()
@@ -38,22 +35,22 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const title = initialData ? "Edit category" : "Create category"
-    const description = initialData ? "Edit a category" : "Add a new category"
-    const toastMessage = initialData ? "category update" : " category create"
+    const title = initialData ? "Edit color" : "Create color"
+    const description = initialData ? "Edit a color" : "Add a new color"
+    const toastMessage = initialData ? "color update" : " color create"
     const action = initialData ? "Save change" : "Create"
 
-    const onSubmit = async (data: CategoryFormValues) => {
+    const onSubmit = async (data: ColorFormValues) => {
 
         try {
             setLoading(true)
             if (initialData) {
-                await axios.patch(`/api/${params?.storeId}/categories/${params.categoryId}`, data)
+                await axios.patch(`/api/${params?.storeId}/colors/${params.colorId}`, data)
             } else {
-                await axios.post(`/api/${params?.storeId}/categories`, data)
+                await axios.post(`/api/${params?.storeId}/colors`, data)
             }
             router.refresh()
-            router.push(`/${params.storeId}/categories`)
+            router.push(`/${params.storeId}/colors`)
             toast.success(toastMessage)
         } catch (error) {
             toast.error("Something went wrong")
@@ -67,9 +64,9 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
     const onDelete = async () => {
         try {
             setLoading(true)
-            await axios.delete(`/api/${params?.storeId}/categories/${params.categoryId}`)
+            await axios.delete(`/api/${params?.storeId}/colors/${params.colorId}`)
             router.refresh()
-            router.push(`/${params?.storeId}/categories`)
+            router.push(`/${params?.storeId}/colors`)
             toast.success("delete successfully!")
         } catch (error) {
             toast.error("Something went wrong")
@@ -79,11 +76,11 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
         }
     }
 
-    const form = useForm<CategoryFormValues>({
+    const form = useForm<ColorFormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: initialData || {
             name: '',
-            billboardId: ''
+            value: ''
         }
     })
 
@@ -104,36 +101,27 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
                     <div className="grid grid-cols-3 gap-8">
                         <FormField control={form.control} name="name" render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Label</FormLabel>
+                                <FormLabel>Name</FormLabel>
                                 <FormControl>
-                                    <Input disabled={loading} placeholder="billboard label" {...field} />
+                                    <Input disabled={loading} placeholder="Color name" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )} />
-                        <FormField control={form.control} name="billboardId" render={({ field }) => (
+                        <FormField control={form.control} name="value" render={({ field }) => (
                             <FormItem>
-                                <FormLabel>billboard</FormLabel>
-                                <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger >
-                                            <SelectValue defaultValue={field.value} placeholder="select a billboard" />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                        {billboards?.map((item) => (
-                                            <SelectItem key={item.id} value={item.id}>
-                                                {item.label}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <FormLabel>Value</FormLabel>
+                                <FormControl>
+                                    <div className="flex items-center gap-x-4">
+                                        <Input disabled={loading} placeholder="Color value" {...field} />
+                                        <div className="border p-4 rounded-full" style={{ backgroundColor: field.value }}></div>
+                                    </div>
+                                </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )} />
-
                     </div>
-                    <Button className="ml-auto mr-4" type="button" variant={"outline"} onClick={() => router.push(`/${params.storeId}/categories`)}>Cancel</Button>
+                    <Button className="ml-auto mr-4" type="button" variant={"outline"} onClick={() => router.push(`/${params.storeId}/colors`)}>Cancel</Button>
                     <Button disabled={loading} className="ml-auto" type="submit">{action}</Button>
                 </form>
             </Form>
@@ -142,4 +130,4 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
     )
 }
 
-export default CategoryForm;
+export default ColorForm;
