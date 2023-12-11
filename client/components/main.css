@@ -1,0 +1,177 @@
+/* navbar css */
+
+.navbar {
+    height: 80px;
+    background-color: transparent;
+    padding: 10px 30px;
+  }
+  .navbar__lerf {
+    align-items: center;
+  }
+  .navbar__lerf_logo {
+    float: left;
+    padding: 0 8px;
+  }
+  .navbar__center-list {
+    align-items: center;
+    text-align: center;
+    display: flex !important;
+    margin-bottom: 0;
+    padding-left:2px;
+  }
+  .navbar__center-item {
+    list-style: none;
+  }
+  
+  .navbar__center-link {
+    text-decoration: none;
+    color: #1c1c1c;
+    font-size: 12px;
+    font-weight: 800;
+    display: block;
+    font-family: "Cairo", sans-serif;
+    transition: all, 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    float: left;
+  }
+  .navbar__center-link:hover {
+    color: #7fad39;
+  }
+  
+  .navbar__center {
+    
+    align-items: center;
+    position: relative;
+  }
+  .navbar__rigth {
+    align-items: center;
+  }
+  .navbar__rigth-list {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-bottom: 0;
+  }
+  .navbar__rigth-item {
+    list-style: none;
+    margin-right: 12px;
+  }
+  .navbar__rigth-icon {
+    color: #1c1c1c;
+  }
+  .navbar__rigth-body {
+    padding-right: 5px;
+    float: right;
+    display: flex !important;
+  }
+  .header__cart__price {
+    font-size: 14px;
+    color: #6f6f6f;
+    display: inline-block;
+  }
+  .header__cart__price span {
+    color: #1c1c1c;
+    font-weight: 700;
+  }
+  
+
+/* footer css */
+.footer {
+    background: #f3f6fa;
+    padding-top: 1px;
+    padding-bottom: 50px;
+    width: 100%;
+  }
+  .footer__body{
+      margin-top: 100px !important;
+  }
+  .footer__about {
+    margin-bottom: 30px;
+  }
+  .footer__about__logo {
+    margin-bottom: 15px;
+  }
+  .footer__about__logo a {
+    text-align: left;
+    display: block;
+    text-decoration: none;
+    background-color: transparent;
+    width: 100%;
+  }
+  .footer__list {
+    display: block;
+    list-style: none;
+    padding-left: 0;
+  }
+  .footer__lists{
+      width: 50%;
+  }
+  .footer__item {
+    text-align: left;
+    font-size: 16px;
+    color: #1c1c1c;
+    line-height: 36px;
+    list-style: none;
+  }
+  .footer__item a{
+    display: block;
+  }
+  .footer__list a {
+    text-decoration: none;
+    color: #1c1c1c;
+  }
+  .footer__widget{
+      display: flex;
+      text-align: left;
+      margin-left: 90px;
+  }
+  .footer__heading{
+      text-align: left;
+      margin-left: 90px;
+      font-weight: 700;
+      font-size: 18px;
+  }
+  .footer__heading-rigth{
+      text-align: left;
+      font-weight: 700;
+      font-size: 18px;
+  }
+  .footer__widget-rigth{
+      text-align: left;
+  }
+  .footer__widget-rigth p {
+      font-size: 14px;
+      color: #1c1c1c;
+      margin-bottom: 30px;
+  }
+  .footer__widget-rigth form {
+      position: relative;
+      margin-bottom: 30px;
+  }
+  .footer__widget-rigth form input {
+      width: 100%;
+      font-size: 16px;
+      padding-left: 20px;
+      color: #1c1c1c;
+      height: 46px;
+      border: 1px solid #ededed;
+      outline: none;
+  
+  }
+  
+  .site-btn{
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 0 26px;
+      height: 100%;
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 800;
+      text-transform: uppercase;
+      display: inline-block;
+      background: #7fad39;
+      border: none;
+  }
+  
