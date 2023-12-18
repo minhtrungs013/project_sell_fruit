@@ -50,7 +50,7 @@ export async function GET(
     { params }: { params: { storeId: string } }
 ) {
     try {
-
+        
         if (!params.storeId) return new NextResponse("store id is required", { status: 400 })
 
         const billboard = await prismadb.billboard.findMany({
