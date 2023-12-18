@@ -8,7 +8,6 @@ export async function GET(
 ) {
     try {
         if (!params.billboardId) return new NextResponse("billboard Id is required", { status: 400 })
-console.log("params.billboardId");
 
         const billboard = await prismadb.billboard.findUnique({
             where: {
@@ -63,7 +62,6 @@ export async function PATCH(
 
         return NextResponse.json(billboard)
     } catch (error) {
-        console.log(error);
         return new NextResponse("interal error", { status: 500 })
     }
 

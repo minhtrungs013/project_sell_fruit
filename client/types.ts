@@ -38,3 +38,8 @@ export interface Size {
     name: string,
     value: string,
 }
+export interface Cart {
+    product: Product,
+    quantity: number,
+}
+
