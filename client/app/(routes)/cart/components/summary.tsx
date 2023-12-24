@@ -18,6 +18,7 @@ const Summary = () => {
     const [checkOnline, setCheckOnline] = useState(true)
     const items = useCart((state) => state.items)
     const removeAll = useCart((state) => state.removeAll)
+    const [isMounted, setIsMounted] = useState(false)
     const totalPrice = items.reduce((total, item) => {
         return total + Number(parseInt(item.product?.price) * item.quantity)
     }, 0)
@@ -27,6 +28,10 @@ const Summary = () => {
         address: null,
         productIds: items.map((item) => item.product?.id)
     })
+    
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
     useEffect(() => {
         if (searchParams.get("success")) {
@@ -41,11 +46,11 @@ const Summary = () => {
 
 
     const checkOut = async () => {
-        if(!formData.phone) return toast.error("điền phone vào")
+        if (!formData.phone) return toast.error("điền phone vào")
 
-        if(!formData.address) return toast.error("điền địa chỉ vào")
+        if (!formData.address) return toast.error("điền địa chỉ vào")
 
-        if(formData.productIds.length === 0) return toast.error("Thêm sản phẩm đi rồi thanh toán")
+        if (formData.productIds.length === 0) return toast.error("Thêm sản phẩm đi rồi thanh toán")
 
         await axios.post(`${process.env.NEXT_PUBLIC_PAI_URL}/checkout`, formData).then((res) => {
             toast.success("Payment completed")
@@ -72,6 +77,10 @@ const Summary = () => {
 
     const changeAddress = (e: any) => {
         setFormData({ ...formData, address: e.target.value })
+    }
+
+    if (!isMounted) {
+        return null
     }
 
     return (
@@ -106,7 +115,7 @@ const Summary = () => {
                             <input type="text" onChange={(e) => changeAddress(e)} className="ml-2 py-2 px-2 w-full border rounded-md " />
                         </div>
                     </div>
-                    <Button onClick={checkOut} className="w-50 mt-6 " disabled={totalPrice > 0 ? true : false} >
+                    <Button onClick={checkOut} className="w-50 mt-6 " disabled={items.length === 0} >
                         Check Out
                     </Button>
                 </div>
